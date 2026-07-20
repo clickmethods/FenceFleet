@@ -50,8 +50,9 @@ export default function Orders() {
         {reqs.map(r => (
           <div key={r.id} className="flex flex-wrap items-center justify-between gap-2 border-t py-2 text-sm">
             <div>
-              <span className="font-semibold">{r.company || r.name}</span> · {r.email} · {r.site_address}
-              <div className="text-xs text-gray-400">{fdate(r.start_date)} → {fdate(r.end_date)}{r.footage ? ` · ${r.footage} ft` : ''}{r.notes ? ` · ${r.notes}` : ''}</div>
+              <span className="font-semibold">{r.company || r.name}</span> · {r.email} · {r.phone}
+              <div className="text-xs text-gray-400">{[r.site_address, r.city, r.state, r.zip].filter(Boolean).join(', ')}</div>
+              <div className="text-xs text-gray-400">{fdate(r.start_date)} → {fdate(r.end_date)}{r.footage ? ` · ${r.footage} ft (≈${Math.ceil(r.footage/12)} panels)` : ''} · {r.fence_type === 'chain_link' ? 'Chain Link' : 'Panels'} {r.fence_height}'{r.opt_gates ? ' · Gates' : ''}{r.opt_windscreen ? ' · Windscreen' : ''}{r.notes ? ` · ${r.notes}` : ''}</div>
             </div>
             <div className="flex gap-2">
               <button className={btnCls} onClick={() => convert(r)}>Convert to order</button>
